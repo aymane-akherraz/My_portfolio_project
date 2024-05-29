@@ -6,8 +6,6 @@ const userRouter = require('./routes/userRoutes');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const path = require('path');
-
-console.log('JWT_SECRET:', process.env.JWT_SECRET);
 const app = express();
 const cors = require('cors');
 

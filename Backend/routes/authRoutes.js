@@ -43,7 +43,6 @@ router.post('/login', async (req, res) => {
       return res.status(401).json('Sorry, unrecognized username or password');
     }
   } catch (err) {
-    console.log(err);
     res.status(500).json('Oops! Something went wrong, please try again later');
   }
 });
