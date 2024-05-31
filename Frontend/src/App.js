@@ -11,24 +11,26 @@ import Myblogs from './Myblogs';
 import Update from './Editblog';
 import ScrollToTop from './Srollup';
 import { useSelector } from 'react-redux';
+import { useRef } from 'react';
 
 function App () {
   const user = useSelector((state) => state.user);
+  const myApp = useRef(null);
 
   return (
     <Router>
-      <div className='App'>
+      <div className='App' ref={myApp}>
         <ScrollToTop />
-        <Navbar />
+        <Navbar Ref={myApp} />
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home Ref={myApp} />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/blogs/:id' element={<BlogDetails />} />
+          <Route path='/blogs/:id' element={<BlogDetails Ref={myApp} />} />
           <Route path='/blogs/create' element={<Create />} />
-          <Route path='/myblogs' element={<Myblogs />} />
-          <Route path='/myblogs/:id' element={user.id ? <Update /> : <Login />} />
+          <Route path='/myblogs' element={<Myblogs Ref={myApp} />} />
+          <Route path='/myblogs/:id' element={user.id ? <Update Ref={myApp} /> : <Login />} />
         </Routes>
       </div>
     </Router>

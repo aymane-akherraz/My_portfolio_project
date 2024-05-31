@@ -4,14 +4,15 @@ import axios from './axiosConfig';
 import { emptyUser } from './userSlice';
 import { emptyBlogs, fetchBlogs } from './blogSlice';
 import { emptyData } from './dataSlice';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
-const Myblogs = () => {
+const Myblogs = ({ Ref }) => {
   const user = useSelector((state) => state.user);
   const blogs = useSelector((state) => state.blog);
   const [isAuth, setIsAuth] = useState(null);
   const dispatch = useDispatch();
+  const myDiv = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,14 +23,21 @@ const Myblogs = () => {
           setIsAuth(true);
         }
       } catch (error) {
-        dispatch(emptyUser());
-        dispatch(emptyBlogs());
-        dispatch(emptyData());
-        setIsAuth(false);
+        if (error.response.status === 401) {
+          dispatch(emptyUser());
+          dispatch(emptyBlogs());
+          dispatch(emptyData());
+          setIsAuth(false);
+        } else {
+          Ref.current.classList.add('showErr');
+          setTimeout(() => {
+            Ref.current.classList.remove('showErr');
+          }, 3000);
+        }
       }
     };
     fetchData();
-  }, [dispatch, user.id]);
+  }, [dispatch, user.id, Ref]);
 
   if (isAuth === null) {
     return <div className='loading' />;
@@ -38,11 +46,11 @@ const Myblogs = () => {
   return (
     isAuth
       ? (
-        <div className='blogs'>
+        <div className='blogs' ref={myDiv}>
           <h1>My blogs</h1>
           {
             blogs.map((e) => (
-              <Blog key={e.id} blog={e} />
+              <Blog key={e.id} blog={e} parent={myDiv} />
             ))
         }
         </div>)

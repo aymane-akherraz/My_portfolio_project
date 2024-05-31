@@ -2,7 +2,7 @@ import axios from './axiosConfig';
 import { useEffect, useRef, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
-const BlogDetails = () => {
+const BlogDetails = ({ Ref }) => {
   const location = useLocation();
   const { id } = useParams();
   const blog = useRef(location.state);
@@ -14,6 +14,13 @@ const BlogDetails = () => {
     return date.toLocaleDateString('en-US', options);
   };
 
+  const showErr = () => {
+    Ref.current.classList.add('showErr');
+    setTimeout(() => {
+        Ref.current.classList.remove('showErr');
+    }, 3000);
+  }
+
   const getBlog = async (id) => {
     try {
       const res = await axios.get(`/blog/${id}`);
@@ -21,7 +28,7 @@ const BlogDetails = () => {
         return res.data;
       }
     } catch (err) {
-      console.log(err);
+      return new Error();
     }
   };
 
@@ -37,10 +44,11 @@ const BlogDetails = () => {
           setCont(res.data);
         }
       } catch (err) {
-        console.log(err);
+        showErr();
       }
     };
     fetchBlog();
+    // eslint-disable-next-line
   }, [id, location.state]);
 
   return (

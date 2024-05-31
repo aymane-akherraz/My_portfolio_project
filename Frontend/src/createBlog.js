@@ -48,7 +48,7 @@ const Create = () => {
   };
 
   const getLines = (e) => {
-    lines = e.target.value.split('.')[0];
+    lines = e.target.value.slice(0, 255);
     blogData.current.summary = lines;
     blogData.current.content = e.target.value;
     dispatch(passData((blogData.current)));
@@ -61,7 +61,7 @@ const Create = () => {
   return (
     isAuth
       ? (
-        <div className='contentSect'>
+        <div className='contentSect create'>
           <div className='titleCont'>
             <textarea rows={1} onInput={handleInput} autoFocus name='title' className='title' placeholder='Title' onBlur={getTitle} />
             <input type='file' accept='image/*' id='file' name='img' onChange={getimg} />

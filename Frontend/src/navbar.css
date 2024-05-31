@@ -151,3 +151,22 @@ nav .user_conx .signIn:hover a{
     content: url('../public/images/icons8-éteindre-24-b.png');
     margin-right: 7px;
 }
+.pnl {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    opacity: 0;
+    transform: translateX(-50%);
+    text-align: center;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    z-index: 300;
+    padding: 15px 30px;
+    color: white;
+    font-size: 18px;
+    transition: opacity .5s, top .5s ;
+}
+.panel {
+    opacity: 1;
+    top: 80px;
+}

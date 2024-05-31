@@ -7,16 +7,18 @@ import { emptyUser } from './userSlice';
 import { addBlog, editBlog, emptyBlogs } from './blogSlice';
 import { emptyData } from './dataSlice';
 
-const Navbar = () => {
+const Navbar = ({ Ref }) => {
   const user = useSelector((state) => state.user);
   const blogData = useSelector((state) => state.data);
   const oldData = useSelector((state) => state.blogData);
   const location = useLocation();
   const [visible, setV] = useState(false);
   const [bool, setB] = useState(false);
+  const [msg, setM] = useState('');
   const menuRef = useRef(null);
   const iconRef = useRef(null);
   const myRef = useRef(null);
+  const myPnl = useRef(null);
   const logo = useRef(null);
   const myBtn = useRef(null);
   const pubBtn = useRef(null);
@@ -74,8 +76,26 @@ const Navbar = () => {
     }
   };
 
+  const showPanel = () => {
+    myPnl.current.classList.add('panel');
+    setTimeout(() => {
+      myPnl.current.classList.remove('panel');
+    }, 3000);
+  };
+
+  const showErr = () => {
+    pubBtn.current.classList.remove('animate');
+    setB(false);
+    Ref.current.classList.add('showErr');
+    setTimeout(() => {
+      Ref.current.classList.remove('showErr');
+    }, 3000);
+  };
+
   const publishBlog = async () => {
     if (blogData.title && blogData.content) {
+      setB(true);
+      pubBtn.current.classList.add('animate');
       const blog = { ...blogData };
       if (blog.img) {
         const formData = new FormData();
@@ -86,26 +106,35 @@ const Navbar = () => {
             blog.img = r.data;
           }
         } catch (err) {
-          console.log(err);
+          showErr();
         }
       }
       blog.author_id = user.id;
       const blogObj = { name: user.name, title: blog.title, summary: blog.summary };
-      setB(true);
-      pubBtn.current.classList.add('animate');
-      const res = await axios.post('/blogs/create', blog);
-      if (res.status === 201) {
-        blogObj.id = res.data.id;
-        blogObj.created_at = res.data.date;
-        dispatch(addBlog(blogObj));
-        pubBtn.current.classList.remove('animate');
-        setB(false);
-        navigate('/myblogs');
+      try {
+        const res = await axios.post('/blogs/create', blog);
+        if (res.status === 201) {
+          blogObj.id = res.data.id;
+          blogObj.created_at = res.data.date;
+          dispatch(addBlog(blogObj));
+          pubBtn.current.classList.remove('animate');
+          setB(false);
+          setM('Successfully created !');
+          showPanel();
+          navigate('/myblogs');
+        }
+      } catch (err) {
+        showErr();
       }
+    } else {
+      setM('All fields are required !');
+      showPanel();
     }
   };
 
   const updateBlog = async () => {
+    setB(true);
+    pubBtn.current.classList.add('animate');
     const newblog = {};
     if (blogData.title !== oldData.title) {
       newblog.title = blogData.title;
@@ -118,24 +147,29 @@ const Navbar = () => {
     }
     if (JSON.stringify(newblog) !== '{}') {
       try {
-        setB(true);
-        pubBtn.current.classList.add('animate');
         const res = await axios.put(`/myblogs/${oldData.id}`, blogData);
         if (res.status === 200) {
           dispatch(editBlog({ id: parseInt(oldData.id), blog: blogData }));
           pubBtn.current.classList.remove('animate');
           setB(false);
-
+          setM('Successfully updated !');
+          showPanel();
           navigate('/myblogs');
         }
       } catch (error) {
-        console.log(error);
+        showErr();
       }
+    } else {
+      pubBtn.current.classList.remove('animate');
+      setB(false);
+      setM('No updates were made !');
+      showPanel();
     }
   };
 
   return (
     <nav ref={myRef} className={!user.id && location.pathname === '/' ? '' : 'navbar'}>
+      <div className='pnl' style={msg === 'No updates were made !' || msg === 'All fields are required !' ? { backgroundColor: 'rgb(41, 41, 255)' } : { backgroundColor: 'green' }} ref={myPnl}>{msg}</div>
       <div className='container'>
         <img src='/images/icons8-blogger-48.png' alt='logo' />
         <strong><Link to='/' ref={logo} className={!user.id && location.pathname === '/' ? 'wLogo' : 'bLogo'}>Blogger</Link></strong>
@@ -151,7 +185,7 @@ const Navbar = () => {
             ? <Link className='link signUp' to='/blogs/create'>Write</Link>
             : location.pathname === '/blogs/create'
               ? <button onClick={publishBlog} ref={pubBtn} className='link signUp' disabled={bool}>Publish<span /></button>
-              : match && <button onClick={updateBlog} ref={pubBtn} className='link signUp' disabled={bool}>Save & Publish<span /></button>}
+              : match && <button onClick={updateBlog} ref={pubBtn} className='link signUp' disabled={bool}>Save<span /></button>}
           <img ref={iconRef} onClick={() => setV(prev => !prev)} className='userIcon' src='/images/icons8-utilisateur-48.png' alt='user icon' />
         </div>}
       {visible &&

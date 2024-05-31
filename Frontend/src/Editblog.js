@@ -5,7 +5,7 @@ import axios from './axiosConfig';
 import { emptyData, passData } from './dataSlice';
 import { sendData } from './oldDataSlice';
 
-const Update = () => {
+const Update = ({ Ref }) => {
   const blogs = useSelector((state) => state.blog);
   const { id } = useParams();
   const [blog] = blogs.filter(blog => blog.id === parseInt(id));
@@ -31,11 +31,14 @@ const Update = () => {
           setCont(res.data);
         }
       } catch (err) {
-        console.log(err);
+        Ref.current.classList.add('showErr');
+        setTimeout(() => {
+          Ref.current.classList.remove('showErr');
+        }, 3000);
       }
     };
     fetchContent();
-  }, [id]);
+  }, [id, Ref]);
 
   useEffect(() => {
     if (blCont.current) {
@@ -51,7 +54,7 @@ const Update = () => {
   };
 
   const getLines = (e) => {
-    lines = e.target.value.split('.')[0];
+    lines = e.target.value.slice(0, 255);
     blogDt.current.summary = lines;
     blogDt.current.content = e.target.value;
     dispatch(passData((blogDt.current)));

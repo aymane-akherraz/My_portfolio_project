@@ -1,3 +1,20 @@
+.App::after {
+    content: 'An error occurred. Please try again later.';
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    opacity: 0;
+    transform: translateX(-50%);
+    background-color: red;
+    text-align: center;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    z-index: 300;
+    padding: 15px 30px;
+    color: white;
+    font-size: 18px;
+    transition: opacity .5s, top .5s;
+}
 div.form {
    display: flex;
    flex-direction: column;
@@ -9,6 +26,27 @@ div.form {
    margin-right: auto;
    margin-top: 130px;
    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+div.form::after {
+    content: 'No updates were made !';
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    opacity: 0;
+    transform: translateX(-50%);
+    background-color: rgb(41, 41, 255);
+    text-align: center;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    z-index: 300;
+    padding: 15px 30px;
+    color: white;
+    font-size: 18px;
+    transition: opacity .5s, top .5s;
+}
+div.showPanel::after, .showErr::after {
+    opacity: 1;
+    top: 80px;
 }
 div.form h1 {
     width: 100%;

@@ -10,7 +10,7 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString('en-US', options);
 };
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, parent, myRef }) => {
   const location = useLocation();
   const [visible, setV] = useState(false);
   const dispatch = useDispatch();
@@ -37,9 +37,16 @@ const Blog = ({ blog }) => {
       const res = await axios.delete(`/myblogs/${id}`);
       if (res.status === 200) {
         dispatch(deleteBlog(id));
+        parent.current.classList.add('delPanel');
+        setTimeout(() => {
+            parent.current.classList.remove('delPanel');
+        }, 2000);
       }
     } catch (err) {
-      console.log(err);
+        myRef.current.classList.add('showErr');
+        setTimeout(() => {
+            myRef.current.classList.remove('showErr');
+        }, 3000);
     }
   };
 
@@ -57,7 +64,7 @@ const Blog = ({ blog }) => {
         <div>
           <small>{blog.name} | {date}</small>
           <h2>{blog.title}</h2>
-          <p>{blog.summary}</p>
+          <p>{blog.summary}...</p>
         </div>
         {blog.img && <img src={`http://localhost:5000/public/images/${blog.img}`} alt='img' />}
       </Link>

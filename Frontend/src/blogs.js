@@ -8,7 +8,7 @@ import Blog from './blog';
 import { emptyBlogs } from './blogSlice';
 import { emptyData } from './dataSlice';
 
-const Home = () => {
+const Home = ({ Ref }) => {
   const [blogs, setBlogs] = useState(null);
   const [isAuth, setIsAuth] = useState(null);
   const dispatch = useDispatch();
@@ -35,11 +35,14 @@ const Home = () => {
         const res = await axios.get('/');
         setBlogs(res.data);
       } catch (err) {
-        console.log(err);
+        Ref.current.classList.add('showErr');
+        setTimeout(() => {
+          Ref.current.classList.remove('showErr');
+        }, 3000);
       }
     };
     fetchData();
-  }, [dispatch, location.search]);
+  }, [dispatch, location.search, Ref]);
 
   useEffect(() => {
     if (myHeader.current) {
@@ -75,7 +78,7 @@ const Home = () => {
           <div className='blogs'>
             <h1>Recent Blogs</h1>
             {blogs.map((e) => (
-              <Blog key={e.id} blog={e} />
+              <Blog key={e.id} blog={e} myRef={Ref} />
             ))}
           </div>
           )

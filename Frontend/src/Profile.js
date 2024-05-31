@@ -15,6 +15,7 @@ const Profile = () => {
   const [spin, setSpin] = useState(false);
   const serMsg = useRef('');
   const mesCol = useRef('red');
+  const myDiv = useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -44,6 +45,7 @@ const Profile = () => {
     if (userData.current.name === '' || userData.current.email === '') {
       setReq(true);
     } else {
+      setSpin(true);
       if (userData.current.name === user.name) {
         delete userData.current.name;
       }
@@ -65,6 +67,12 @@ const Profile = () => {
         }
         setSpin(false);
         setReq(true);
+      } else {
+        setSpin(false);
+        myDiv.current.classList.add('showPanel');
+        setTimeout(() => {
+          myDiv.current.classList.remove('showPanel');
+        }, 3000);
       }
     }
   };
@@ -74,7 +82,7 @@ const Profile = () => {
   return (
     isAuth
       ? (
-        <div className='form'>
+        <div className='form' ref={myDiv}>
           <h1>Hi {user.name}!</h1>
           {req && <p className={mesCol.current}>{serMsg.current ? serMsg.current : 'All fields are required !'} </p>}
           <form onSubmit={handleSubmit}>
@@ -86,7 +94,7 @@ const Profile = () => {
             <div className='field'>
               <input type='email' name='email' id='email' onBlur={handleUserData} defaultValue={user.email} />
             </div>
-            <button style={spin ? { cursor: 'not-allowed', opacity: 0.8 } : {}} className='signUp'>Update
+            <button style={spin ? { cursor: 'not-allowed', opacity: 0.8 } : {}} disabled={spin} className='signUp'>Update
               <span className={spin ? 'spin' : ''} />
             </button>
           </form>

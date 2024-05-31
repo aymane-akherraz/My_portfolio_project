@@ -150,10 +150,15 @@ div.blogs{
 .blogDt, .contentSect {
     max-width: 800px;
     margin: 100px auto 0 auto;
-    padding: 30px 50px 100px 100px;
+    padding: 30px;
+    padding-bottom: 100px;
+}
+.create {
+    padding: 30px 20px 100px 100px;
 }
 .edit {
     padding: 30px;
+    padding-bottom: 100px;
 }
 .blogDt h1{
     font-size: 2.5rem;
@@ -225,6 +230,27 @@ input[type='file'] {
     cursor: pointer;
     background-position: center;
 }
+.blogs::after {
+    content: 'Successfully deleted !';
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    opacity: 0;
+    transform: translateX(-50%);
+    background-color: green;
+    text-align: center;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    z-index: 300;
+    padding: 10px 30px;
+    color: white;
+    font-size: 18px;
+    transition: opacity .5s, top .5s ;
+}
+.delPanel::after {
+    opacity: 1;
+    top: 80px;
+}
 @media screen and (max-width: 1000px) {
     div.blogs{
         margin: 100px 50px 0 50px;
@@ -252,6 +278,10 @@ input[type='file'] {
     .blogItem .menu {
         top: 50px;
         right: 5px;
+    }
+    .create {
+        padding-left: 70px;
+        padding-right: 20px;
     }
 }
 
