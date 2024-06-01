@@ -12,13 +12,13 @@ const cors = require('cors');
 app.listen(5000);
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://www.aycrown.tech',
   credentials: true
 }));
 
 app.use(cookieParser());
 app.use(express.json());
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/api/public', express.static(path.join(__dirname, 'public')));
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './public/images');
@@ -28,9 +28,9 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage });
-app.post('/upload', upload.single('file'), async (req, res) => {
+app.post('/api/upload', upload.single('file'), async (req, res) => {
   res.json(req.file.filename);
 });
-app.use(authRouter);
-app.use(blogRouter);
-app.use(userRouter);
+app.use('/api', authRouter);
+app.use('/api', blogRouter);
+app.use('/api', userRouter);

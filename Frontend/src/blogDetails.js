@@ -61,7 +61,7 @@ const BlogDetails = ({ Ref }) => {
             <small>Published at: {blog.current.creationDate}</small>
           </div>
           <div>
-            {blog.current.img && <img src={`http://localhost:5000/public/images/${blog.current.img}`} alt='img' className='blogImg' />}
+            {blog.current.img && <img src={`/api/public/images/${blog.current.img}`} alt='img' className='blogImg' />}
           </div>
           <div className='blogCont'>
             {content.split('\n').map((line, index) => (

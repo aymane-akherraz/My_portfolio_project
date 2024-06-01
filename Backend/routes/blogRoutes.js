@@ -45,7 +45,6 @@ router.post('/blogs/create', async (req, res) => {
     const r = await blog.create(req.body);
     res.status(201).json(r);
   } catch (error) {
-    console.log(error);
     res.status(500).json('Oops! Something went wrong, please try again later');
   }
 });

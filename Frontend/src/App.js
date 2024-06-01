@@ -12,6 +12,8 @@ import Update from './Editblog';
 import ScrollToTop from './Srollup';
 import { useSelector } from 'react-redux';
 import { useRef } from 'react';
+import Footer from './Footer';
+import About from './About';
 
 function App () {
   const user = useSelector((state) => state.user);
@@ -31,7 +33,9 @@ function App () {
           <Route path='/blogs/create' element={<Create />} />
           <Route path='/myblogs' element={<Myblogs Ref={myApp} />} />
           <Route path='/myblogs/:id' element={user.id ? <Update Ref={myApp} /> : <Login />} />
+          <Route path='/about' element={<About />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

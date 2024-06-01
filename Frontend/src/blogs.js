@@ -63,6 +63,7 @@ const Home = ({ Ref }) => {
   return (
     <div className='parent'>
       {!isAuth && (
+        <>
         <div className='landing'>
           <div className='mask'>
             <div className='content'>
@@ -72,6 +73,43 @@ const Home = ({ Ref }) => {
             </div>
           </div>
         </div>
+        <div className='features'>
+            <div className='feature'>
+                <div>
+                    <img className='createImg' src='/images/create.png' alt='create blog page'/>
+                </div>
+                <div className='desc'>
+                    <h1>Create your blog easily</h1>
+                    <p>With our simple and friendly interface, creating your blog is a breeze.
+                        Whether you're a seasoned writer or just starting out, our intuitive design makes
+                        it easy for anyone to publish content.
+                    </p>
+                </div>
+            </div>
+            <div className='feature discover'>
+                <div className='desc'>
+                    <h1>Discover amazing stories</h1>
+                    <p>Explore thought-provoking articles, personal experiences, and expert insights, 
+                        all in one place. Stay updated with fresh content and uncover the stories that resonate with you.
+                    </p>
+                </div>
+                <div>
+                    <img src='/images/recent_blogs.png' alt='blogs page'/>
+                </div>
+            </div>
+            <div className='feature'>
+                <div>
+                    <img src='/images/manage_blogs.png' alt='My blogs page'/>
+                </div>
+                <div className='desc'>
+                    <h1>Manage your blogs easily</h1>
+                    <p>Whether you need to tweak a few details or remove a post entirely, managing your blog has never been easier.
+                    Our intuitive interface allows you to make changes quickly, keeping your focus on creating great content.
+                    </p>
+                </div>
+            </div>
+        </div>
+        </>
       )}
       {blogs
         ? (

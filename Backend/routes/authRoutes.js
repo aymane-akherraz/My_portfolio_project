@@ -2,34 +2,38 @@ const { Router } = require('express');
 const bcrypt = require('bcrypt');
 const user = require('../models/user');
 const jwt = require('jsonwebtoken');
-
 const router = Router();
 
-const maxAge = 60 * 60 * 24;
-
+const maxAge = 60 * 60 * 24; // The time a cookie is valid (1 day)
+// Function to generate a JWT
 const genToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: maxAge });
 };
-
+// Usage of genToken in sign up route
 router.post('/signup', async (req, res) => {
   try {
-    const salt = bcrypt.genSaltSync();
-    req.body.password = bcrypt.hashSync(req.body.password, salt);
-    const userObj = await user.create(req.body);
-    const token = genToken(userObj.id);
-    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000, sameSite: 'strict' });
-    res.status(200).json(userObj);
+    const salt = bcrypt.genSaltSync(); // Creating a salt
+    req.body.password = bcrypt.hashSync(req.body.password, salt); // Hashing the password using the generated salt
+    const userObj = await user.create(req.body); // Sending the infos to the database
+    const token = genToken(userObj.id); // Generating a valid token for the new user
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      maxAge: maxAge * 1000,
+      sameSite: 'none',
+      secure: true
+    }); // Send a cookie to the client with the token as a value
+    res.status(200).json(userObj); // send the user infos to the frontend
   } catch (err) {
     if (err.code === 'ER_DUP_ENTRY') {
-      return res.status(409).json('Email address already exists !');
+      return res.status(409).json('Email address already exists !'); // Return an Error message if Email already exists
     }
-    res.status(500).json('Oops! Something went wrong, please try again later');
+    res.status(500).json('Oops! Something went wrong, please try again later'); // Return a message if any other error occured
   }
 });
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  const usr = await user.getbyEmail(email);
+  const usr = await user.getbyEmail(email); 
   if (usr === undefined) {
     return res.status(401).json('Sorry, unrecognized username or password');
   }
@@ -37,7 +41,7 @@ router.post('/login', async (req, res) => {
     const match = await bcrypt.compare(password, usr.password);
     if (match) {
       const token = genToken(usr.id);
-      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000, sameSite: 'strict' });
+      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000, sameSite: 'none', secure: true });
       res.status(200).json(usr);
     } else {
       return res.status(401).json('Sorry, unrecognized username or password');

@@ -66,7 +66,7 @@ const Blog = ({ blog, parent, myRef }) => {
           <h2>{blog.title}</h2>
           <p>{blog.summary}...</p>
         </div>
-        {blog.img && <img src={`http://localhost:5000/public/images/${blog.img}`} alt='img' />}
+        {blog.img && <img src={`/api/public/images/${blog.img}`} alt='img' />}
       </Link>
       {location.pathname === '/myblogs' && <img className='menuicon' src='/images/icons8-menu-30.png' onClick={() => setV(prev => !prev)} alt='menu' />}
       {visible &&
