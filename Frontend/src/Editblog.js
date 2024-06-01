@@ -46,6 +46,7 @@ const Update = ({ Ref }) => {
     }
     dispatch(emptyData());
     dispatch(sendData({ id, title: blog.title, content, summary: blog.summary }));
+    blogDt.current.content = content;
   }, [content, dispatch, id, blog.title, blog.summary]);
 
   const getTitle = (e) => {

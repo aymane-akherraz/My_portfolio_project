@@ -17,9 +17,9 @@ const BlogDetails = ({ Ref }) => {
   const showErr = () => {
     Ref.current.classList.add('showErr');
     setTimeout(() => {
-        Ref.current.classList.remove('showErr');
+      Ref.current.classList.remove('showErr');
     }, 3000);
-  }
+  };
 
   const getBlog = async (id) => {
     try {

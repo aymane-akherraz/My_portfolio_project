@@ -133,37 +133,42 @@ const Navbar = ({ Ref }) => {
   };
 
   const updateBlog = async () => {
-    setB(true);
-    pubBtn.current.classList.add('animate');
     const newblog = {};
-    if (blogData.title !== oldData.title) {
-      newblog.title = blogData.title;
-    }
-    if (blogData.summary !== oldData.summary) {
-      newblog.summary = blogData.summary;
-    }
-    if (blogData.content !== oldData.content) {
-      newblog.content = blogData.content;
-    }
-    if (JSON.stringify(newblog) !== '{}') {
-      try {
-        const res = await axios.put(`/myblogs/${oldData.id}`, blogData);
-        if (res.status === 200) {
-          dispatch(editBlog({ id: parseInt(oldData.id), blog: blogData }));
-          pubBtn.current.classList.remove('animate');
-          setB(false);
-          setM('Successfully updated !');
-          showPanel();
-          navigate('/myblogs');
-        }
-      } catch (error) {
-        showErr();
-      }
-    } else {
-      pubBtn.current.classList.remove('animate');
-      setB(false);
-      setM('No updates were made !');
+    if (!blogData.title || !blogData.content) {
+      setM('All fields are required !');
       showPanel();
+    } else {
+      setB(true);
+      pubBtn.current.classList.add('animate');
+      if (blogData.title !== oldData.title) {
+        newblog.title = blogData.title;
+      }
+      if (blogData.summary !== oldData.summary) {
+        newblog.summary = blogData.summary;
+      }
+      if (blogData.content !== oldData.content) {
+        newblog.content = blogData.content;
+      }
+      if (JSON.stringify(newblog) !== '{}') {
+        try {
+          const res = await axios.put(`/myblogs/${oldData.id}`, blogData);
+          if (res.status === 200) {
+            dispatch(editBlog({ id: parseInt(oldData.id), blog: blogData }));
+            pubBtn.current.classList.remove('animate');
+            setB(false);
+            setM('Successfully updated !');
+            showPanel();
+            navigate('/myblogs');
+          }
+        } catch (error) {
+          showErr();
+        }
+      } else {
+        pubBtn.current.classList.remove('animate');
+        setB(false);
+        setM('No updates were made !');
+        showPanel();
+      }
     }
   };
 

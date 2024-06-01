@@ -39,14 +39,14 @@ const Blog = ({ blog, parent, myRef }) => {
         dispatch(deleteBlog(id));
         parent.current.classList.add('delPanel');
         setTimeout(() => {
-            parent.current.classList.remove('delPanel');
+          parent.current.classList.remove('delPanel');
         }, 2000);
       }
     } catch (err) {
-        myRef.current.classList.add('showErr');
-        setTimeout(() => {
-            myRef.current.classList.remove('showErr');
-        }, 3000);
+      myRef.current.classList.add('showErr');
+      setTimeout(() => {
+        myRef.current.classList.remove('showErr');
+      }, 3000);
     }
   };
 

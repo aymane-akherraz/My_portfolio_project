@@ -300,6 +300,9 @@ input[type='file'] {
     .blog {
         flex-direction: column;
     }
+    .blog div {
+        width: 100%;
+    }
     .blog img {
         padding-left: 0px;
         width: 100%;
