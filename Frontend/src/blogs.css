@@ -49,6 +49,7 @@
 }
 .feature div {
     width: 50%;
+    font-size: 1.1rem;
 }
 .feature h2 {
     color: #252b2f;
@@ -57,7 +58,7 @@
     width: 100%;
 }
 .desc p {
-    line-height: 25px;
+    line-height: 1.7;
 }
 .createImg {
     box-shadow: 0px 0px 5px rgb(196, 196, 196),
