@@ -8,7 +8,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const userData = useRef({});
   const emailRe = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]+)*$/;
-  const pwdRe = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#+-?&:;<>,./~_=|(){}^])[A-Za-z\d@$!%*#+-?&:;<>,.$/~_=|(){}^]{6,30}$/;
+  const pwdRe = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#+\-?&:;<>,./~_=|(){}^])[A-Za-z\d@$!%*#+\-?&:;<>,./~_=|(){}^]{6,30}$/;
   const [err, setErr] = useState(false);
   const [err2, setErr2] = useState(false);
   const [req, setReq] = useState(false);
