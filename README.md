@@ -2,9 +2,9 @@
 
 ## Introduction:
 
-Deployed site: [aycrown.tech](https://www.aycrown.tech/)
-Project blog article: [How I Made My First Blogging Website](https://medium.com/@aymaneakherraz/how-did-i-make-my-first-blogging-website-4599c7361c37)
-My LinkedIn profile: [Aymane Akherraz](https://www.linkedin.com/in/aymane-akherraz-299143265/)
+* Deployed site: [aycrown.tech](https://www.aycrown.tech/)
+* Project blog article: [How I Made My First Blogging Website](https://medium.com/@aymaneakherraz/how-did-i-make-my-first-blogging-website-4599c7361c37)
+* My LinkedIn profile: [Aymane Akherraz](https://www.linkedin.com/in/aymane-akherraz-299143265/)
 
 ## Installation:
 
@@ -26,12 +26,13 @@ app.use(cors({
   credentials: true
 }));
 ```
-or if you're working locally you can just set: **http://localhost:3000/** (adjust the port if necessary)
+or if you're working locally you can just set: http://localhost:3000/ (adjust the port if necessary).
+
 Also in Frontend/src/axiosConfig.js you should change the baseURL:
 ``` 
 axios.defaults.baseURL = '/api';
 ```
-Again if you're working locally you can just set: **http://localhost:5000/** (adjust the port if necessary)
+Again if you're working locally you can just set: http://localhost:5000/ (adjust the port if necessary).
 
 To start the React app locally:
 
@@ -48,4 +49,5 @@ Builds the app for production to the build folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 My landing page:
+
 ![Screenshot of the project](./screenshot.png)
