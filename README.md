@@ -48,6 +48,12 @@ If you want to deploy it:
 Builds the app for production to the build folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
+To run app.js server using nodemon:
+
+### `nodemon app.js`
+
+By default the server will listen on [http://localhost:5000](http://localhost:5000)
+
 My landing page:
 
 ![Screenshot of the project](./screenshot.png)
