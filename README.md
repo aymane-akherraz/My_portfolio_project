@@ -48,7 +48,7 @@ If you want to deploy it:
 Builds the app for production to the build folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-To run app.js server using nodemon:
+To run start the Express server using nodemon:
 
 ### `nodemon app.js`
 
