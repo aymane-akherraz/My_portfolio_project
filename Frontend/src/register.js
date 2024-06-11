@@ -8,7 +8,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const userData = useRef({});
   const emailRe = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]+)*$/;
-  const pwdRe = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#+\-?&:;<>,./~_=|(){}^])[A-Za-z\d@$!%*#+\-?&:;<>,./~_=|(){}^]{6,30}$/;
+  const pwdRe = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#+-?&:;<>,./~_=|(){}^])[A-Za-z\d@$!%*#+\-?&:;<>,./~_=|(){}^]{6,30}$/;
   const [err, setErr] = useState(false);
   const [err2, setErr2] = useState(false);
   const [req, setReq] = useState(false);
@@ -74,7 +74,7 @@ const Signup = () => {
         <div className='field'>
           <input type={visible ? 'text' : 'password'} name='password' onBlur={handleUserData} placeholder='Password (6 characters minimum)' />
           <img onClick={() => setVisible(!visible)} src={visible ? '/images/icons8-visible-24.png' : '/images/icons8-invisible-24.png'} alt='eye' className='eye' />
-          {err2 && <small>At least 6 characters (1 letter, 1 number and 1 special character)</small>}
+          {err2 && <small>At least 6 characters (1 letter, 1 number, 1 special character)</small>}
         </div>
         <button disabled={spin && true} style={spin ? { cursor: 'not-allowed', opacity: 0.8 } : {}} className='signUp'>Sign up
           <span className={spin ? 'spin' : ''} />
