@@ -208,7 +208,7 @@ div.blogs{
     font-family: Georgia, 'Times New Roman', Times, serif;
     margin-top: 50px;
     font-size: 1.4rem;
-    line-height: 30px;
+    line-height: 32px;
 }
 .contentSect textarea{
     border: none;
@@ -336,6 +336,10 @@ input[type='file'] {
     .feature .desc {
         text-align: center;
         padding-top: 30px;
+    }
+    .blogCont {
+    	font-size: 1.2rem;
+	line-height: 30px;
     }
 }
 
